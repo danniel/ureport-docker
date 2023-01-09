@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+
+  ureport-db:
+    container_name: ureport-db
+    image: postgres:15.1-bullseye
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    restart: on-failure
+  
+  ureport-redis:
+    container_name: ureport-redis
+    image: redis:6-bullseye
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    command: redis-server
+    restart: on-failure
+
+  ureport-web:
+    container_name: ureport-web
+    build:
+      context: .
+      dockerfile: ureport.Dockerfile
+    env_file:
+      - .env
+    environment:
+      - "PYTHONUNBUFFERED=1"
+      - "LOG_LEVEL=warning"
+    restart: on-failure
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - ureport-db
+      - ureport-redis
+
+volumes:
+  database-data:
+    name: rapidpro-pgdata
