@@ -1,5 +1,5 @@
 # The build image
-FROM debian:bullseye-slim as build
+FROM debian:bullseye-slim
 
 ENV PYTHONUNBUFFERED=1
 ENV IS_CONTAINERIZED=True
@@ -20,6 +20,7 @@ WORKDIR /var/www/ureport
 ENV VIRTUAL_ENV=/opt/venv PATH=/opt/venv/bin:/root/.local/bin:$PATH
 RUN python3 -m venv $VIRTUAL_ENV \
     && python3.9 -m pip install poetry gunicorn[gevent]
+    && poetry install
 
 # Less and Coffescript
 RUN npm install less -g --no-audit && npm install coffeescript -g --no-audit
@@ -37,8 +38,12 @@ ENTRYPOINT ["/init"]
 
 COPY docker/s6-rc.d /etc/s6-overlay/s6-rc.d
 
+# NGINX
+COPY docker/nginx/selfsigned* /etc/ssl/localcerts/
+COPY docker/nginx/nginx.conf /etc/nginx/sites-available/default
+
 # Application set up
-COPY docker/temba/settings.py temba/settings.py
+COPY docker/ureport/settings.py ureport/settings.py
 RUN npm install -y --no-audit \
     && python3.9 manage.py collectstatic
 
