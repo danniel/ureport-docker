@@ -19,7 +19,7 @@ RUN mkdir -p /var/www/ && tar -C /var/www/ -xzf /tmp/ureport-1.2.51.tar.gz \
 WORKDIR /var/www/ureport
 ENV VIRTUAL_ENV=/opt/venv PATH=/opt/venv/bin:/root/.local/bin:$PATH
 RUN python3 -m venv $VIRTUAL_ENV \
-    && python3.9 -m pip install poetry gunicorn[gevent]
+    && python3.9 -m pip install poetry gunicorn[gevent] \
     && poetry install
 
 # Less and Coffescript
