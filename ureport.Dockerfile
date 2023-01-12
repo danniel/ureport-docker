@@ -12,7 +12,7 @@ RUN apt-get update && apt-get upgrade -y \
 
 # UReport source
 ADD https://github.com/rapidpro/ureport/archive/refs/tags/v1.2.51.tar.gz /tmp
-RUN mkdir -p /var/www/ && tar -C /var/www/ -xzf /tmp/ureport-1.2.51.tar.gz \
+RUN mkdir -p /var/www/ && tar -C /var/www/ -xzf /tmp/v1.2.51.tar.gz \
     && mv /var/www/ureport-1.2.51/ /var/www/ureport/
 
 # Python venv
