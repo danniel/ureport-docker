@@ -7,8 +7,10 @@ ENV IS_CONTAINERIZED=True
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
         build-essential gettext libpq-dev \
+        xz-utils nginx \
         python3.9 python3.9-dev python3-pip python3-venv \
-        nodejs npm
+        nodejs npm \
+    && apt-get clean && apt-get autoclean
 
 # UReport source
 ADD https://github.com/rapidpro/ureport/archive/refs/tags/v1.2.51.tar.gz /tmp

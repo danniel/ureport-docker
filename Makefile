@@ -12,7 +12,10 @@ drop-db:                          ## drops the database
 	docker volume rm ureport-pgdata
 
 migrate:                          ## apply migrations in a clean container
-	docker-compose exec ureport-web python3 manage.py migrate
+	docker-compose exec ureport-web python3 manage.py migrate --run-syncdb
+
+collectstatic:                    ## collect static files
+	docker-compose exec ureport-web python3 manage.py collectstatic --noinput
 
 pyshell:                          ## start a django shell
 	docker-compose exec ureport-web python3 manage.py shell

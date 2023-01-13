@@ -17,7 +17,7 @@ fi
 
 if [ "${RUN_COLLECT_STATIC}" = "yes" ]; then
     echo "Collect static"
-    mkdir -p /var/www/ureport/static
+    mkdir -p /var/www/ureport/sitestatic
     python3 manage.py collectstatic --noinput
 fi
 
