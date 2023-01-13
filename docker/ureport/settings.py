@@ -29,9 +29,10 @@ API_BOUNDARY_CACHE_TIME = 60 * 60 * 6
 API_GROUP_CACHE_TIME = 60 * 60 * 6
 API_RESULT_CACHE_TIME = 60 * 60 * 6
 
-SITE_API_HOST = 'rapidpro.io'
-SITE_API_HOST = 'https://api.rapidpro.io'
-HOSTNAME = 'ureport.io' if TESTING else 'ureport.io:8000'
+SITE_API_HOST = os.getenv("RAPIDPRO_API_URL", 'https://api.rapidpro.io')
+
+HOSTNAME = os.getenv("HOSTNAME", "ureport.io")
+
 
 LOGGING['loggers']['celery.worker'] = {
     'level': 'DEBUG',
@@ -73,8 +74,6 @@ DATABASES = {
         }
     }
 }
-
-REDIS_HOST = 'localhost'
 
 REDIS_HOST = os.getenv("REDIS_HOST","localhost")
 REDIS_PORT = os.getenv("REDIS_PORT","6379")
