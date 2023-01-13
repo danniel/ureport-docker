@@ -8,7 +8,7 @@ from ureport.settings_common import *
 
 ALLOWED_HOSTS = ['*']
 
-DEBUG = False
+DEBUG = True
 THUMBNAIL_DEBUG = DEBUG
 
 
