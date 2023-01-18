@@ -15,7 +15,7 @@ RUN apt-get update && apt-get upgrade -y \
 # Patched UReport source
 ADD https://github.com/danniel/ureport/archive/refs/heads/danniel/v1.2.51+patchCategories.tar.gz /tmp
 RUN mkdir -p /var/www/ && tar -C /var/www/ -xzf /tmp/v1.2.51+patchCategories.tar.gz \
-    && mv /var/www/ureport-danniel-1.2.51-patchCategories/ /var/www/ureport/
+    && mv /var/www/ureport-danniel-v1.2.51-patchCategories/ /var/www/ureport/
 
 # Python venv
 WORKDIR /var/www/ureport
