@@ -6,7 +6,7 @@ services:
     container_name: ureport-db
     image: postgres:14.6-bullseye
     ports:
-      - "5432:5432"
+      - 5432
     env_file:
       - .env
     volumes:
@@ -17,7 +17,7 @@ services:
     container_name: ureport-redis
     image: redis:6-bullseye
     ports:
-      - "6379:6379"
+      - 6379
     env_file:
       - .env
     command: redis-server

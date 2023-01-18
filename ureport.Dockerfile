@@ -12,10 +12,10 @@ RUN apt-get update && apt-get upgrade -y \
         nodejs npm \
     && apt-get clean && apt-get autoclean
 
-# UReport source
-ADD https://github.com/rapidpro/ureport/archive/refs/tags/v1.2.51.tar.gz /tmp
-RUN mkdir -p /var/www/ && tar -C /var/www/ -xzf /tmp/v1.2.51.tar.gz \
-    && mv /var/www/ureport-1.2.51/ /var/www/ureport/
+# Patched UReport source
+ADD https://github.com/danniel/ureport/archive/refs/heads/danniel/v1.2.51+patchCategories.tar.gz /tmp
+RUN mkdir -p /var/www/ && tar -C /var/www/ -xzf /tmp/v1.2.51+patchCategories.tar.gz \
+    && mv /var/www/ureport-danniel-1.2.51-patchCategories/ /var/www/ureport/
 
 # Python venv
 WORKDIR /var/www/ureport
