@@ -3,14 +3,17 @@ import os
 
 from ureport.settings_common import *
 
+
 # INSTALLED_APPS = INSTALLED_APPS + ('debug_toolbar.apps.DebugToolbarConfig',)
 # MIDDLEWARE = ('debug_toolbar.middleware.DebugToolbarMiddleware',) + MIDDLEWARE
 
-ALLOWED_HOSTS = ['*']
-
-DEBUG = True
+if os.getenv("DEBUG", "").lower().strip() == "true":
+    DEBUG = True
+else:
+    DEBUG = False
 THUMBNAIL_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['*']
 
 ADMINS=()
 
@@ -41,10 +44,10 @@ LOGGING['loggers']['celery.worker'] = {
 }
 
 # we store files on S3 on prod boxes
-if os.getenv('PRODUCTION', False):
+if os.getenv("PRODUCTION", "").lower().strip() == "true":
     AWS_ACCESS_KEY_ID=os.getenv('AWS_ACCESS_KEY_ID', '')
     AWS_SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY', '')
-    AWS_STORAGE_BUCKET_NAME='dl-ureport'
+    AWS_STORAGE_BUCKET_NAME=os.getenv('AWS_STORAGE_BUCKET_NAME', '')
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
