@@ -7,10 +7,12 @@ from ureport.settings_common import *
 # INSTALLED_APPS = INSTALLED_APPS + ('debug_toolbar.apps.DebugToolbarConfig',)
 # MIDDLEWARE = ('debug_toolbar.middleware.DebugToolbarMiddleware',) + MIDDLEWARE
 
-if os.getenv("DEBUG", "").lower().strip() == "true":
+if os.getenv("DEBUG", "").lower().strip() in ["1", "true", "yes"]:
     DEBUG = True
 else:
     DEBUG = False
+
+
 THUMBNAIL_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['*']
@@ -32,7 +34,7 @@ API_BOUNDARY_CACHE_TIME = 60 * 60 * 6
 API_GROUP_CACHE_TIME = 60 * 60 * 6
 API_RESULT_CACHE_TIME = 60 * 60 * 6
 
-SITE_API_HOST = os.getenv("RAPIDPRO_API_URL", 'https://api.rapidpro.io')
+SITE_API_HOST = os.getenv("RAPIDPRO_API_URL", "https://api.rapidpro.io")
 
 HOSTNAME = os.getenv("HOSTNAME", "ureport.io")
 
@@ -44,7 +46,7 @@ LOGGING['loggers']['celery.worker'] = {
 }
 
 # we store files on S3 on prod boxes
-if os.getenv("PRODUCTION", "").lower().strip() == "true":
+if PRODUCTION:
     AWS_ACCESS_KEY_ID=os.getenv('AWS_ACCESS_KEY_ID', '')
     AWS_SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY', '')
     AWS_STORAGE_BUCKET_NAME=os.getenv('AWS_STORAGE_BUCKET_NAME', '')
