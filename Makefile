@@ -1,27 +1,27 @@
 fastbuild:
-	ENVIRONMENT=production docker-compose up -d --build
+	ENVIRONMENT=production docker compose up -d --build
 
 build:                            ## TODO: dev/stage/prod
-	ENVIRONMENT=production docker-compose up -d --build --force-recreate --remove-orphans
+	ENVIRONMENT=production docker compose up -d --build --force-recreate --remove-orphans
 
 superuser:                        ## creates a superuser for the backend
-	docker-compose exec ureport-web python3 manage.py createsuperuser
+	docker compose exec ureport-web python3 manage.py createsuperuser
 
 drop-db:                          ## drops the database
-	docker-compose down -t 60
+	docker compose down -t 60
 	docker volume rm ureport-pgdata
 
 migrate:                          ## apply migrations in a clean container
-	docker-compose exec ureport-web python3 manage.py migrate --run-syncdb
+	docker compose exec ureport-web python3 manage.py migrate --run-syncdb
 
 collectstatic:                    ## collect static files
-	docker-compose exec ureport-web python3 manage.py collectstatic --noinput
+	docker compose exec ureport-web python3 manage.py collectstatic --noinput
 
 pyshell:                          ## start a django shell
-	docker-compose exec ureport-web python3 manage.py shell
+	docker compose exec ureport-web python3 manage.py shell
 
 shell:                            ## start bash
-	docker-compose exec ureport-web bash
+	docker compose exec ureport-web bash
 
 
 ## TODO: Update the SSL certificates for NGINX
